@@ -1,6 +1,5 @@
 /target/
 
-### STS ###
 .classpath
 .project
-.settings*
+.settings
