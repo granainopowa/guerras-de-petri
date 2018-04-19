@@ -12,22 +12,27 @@ import java.util.List;
  */
 public class Network {
 
-	private List<Neuron> inputLayer = new ArrayList<>();
+	private Layer inputLayer;
+	private Layer outputLayer;
 
 	/**
 	 * Creates a neural network with as many layers as parameters.
-	 * 
-	 * @param layerNeuronCount
-	 *            array of layers. For each value in the array, a layer is created
-	 *            with its number of neurons
+	 *
+	 * @param inputCount
+	 *            number of neurons in the input layer
+	 * @param outputCount
+	 *            number of neurons in the output layer
+	 * @param hiddenLayersNeuronCount
+	 *            array of hidden layers. For each value in the array, a layer is
+	 *            created with its number of neurons
 	 */
-	public Network(int... layerNeuronCount) {
-		for (int neuronCount : layerNeuronCount) {
-			//create layer
+	public Network(int inputCount, int outputCount, int... hiddenLayersNeuronCount) {
+		// TODO: connect layers
+		this.inputLayer = new Layer(inputCount);
+		for (int neuronCount : hiddenLayersNeuronCount) {
+			Layer hiddenLayer = new Layer(neuronCount);
 		}
+		this.outputLayer = new Layer(outputCount);
 	}
 
-	public void addInputNeuron() {
-		inputLayer.add(new Neuron());
-	}
 }
