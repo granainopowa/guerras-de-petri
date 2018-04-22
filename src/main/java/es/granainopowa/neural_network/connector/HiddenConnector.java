@@ -1,6 +1,6 @@
 package es.granainopowa.neural_network.connector;
 
-import es.granainopowa.neural_network.base.neuron.Neuron;
+import es.granainopowa.neural_network.neuron.Neuron;
 
 /**
  * Connection between neurons

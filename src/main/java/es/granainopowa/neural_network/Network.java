@@ -3,10 +3,10 @@ package es.granainopowa.neural_network;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.granainopowa.neural_network.base.neuron.Neuron;
 import es.granainopowa.neural_network.layer.HiddenLayer;
 import es.granainopowa.neural_network.layer.InputLayer;
 import es.granainopowa.neural_network.layer.Layer;
+import es.granainopowa.neural_network.neuron.Neuron;
 
 /**
  * Neural Network

@@ -1,4 +1,4 @@
-package es.granainopowa.neural_network.base.neuron;
+package es.granainopowa.neural_network.neuron;
 
 /**
  * Neuron

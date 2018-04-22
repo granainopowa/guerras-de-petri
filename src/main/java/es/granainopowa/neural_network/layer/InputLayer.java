@@ -3,7 +3,7 @@ package es.granainopowa.neural_network.layer;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.granainopowa.neural_network.base.neuron.InputNeuron;
+import es.granainopowa.neural_network.neuron.InputNeuron;
 
 /**
  * <p>Creates an input layer.</p>
