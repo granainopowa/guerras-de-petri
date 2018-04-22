@@ -1,5 +1,7 @@
 package es.granainopowa.neural_network.base.neuron;
 
+import java.util.List;
+
 import es.granainopowa.neural_network.connector.HiddenConnector;
 
 /**
@@ -9,9 +11,9 @@ import es.granainopowa.neural_network.connector.HiddenConnector;
  */
 public class HiddenNeuron extends Neuron {
 
-	private HiddenConnector[] inputs;
+	private List<HiddenConnector> inputs;
 
-	public HiddenNeuron(HiddenConnector[] inputs) {
+	public HiddenNeuron(List<HiddenConnector> inputs) {
 		this.inputs = inputs;
 	}
 

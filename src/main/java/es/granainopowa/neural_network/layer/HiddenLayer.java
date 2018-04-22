@@ -1,5 +1,8 @@
 package es.granainopowa.neural_network.layer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.granainopowa.neural_network.base.neuron.HiddenNeuron;
 import es.granainopowa.neural_network.base.neuron.Neuron;
 import es.granainopowa.neural_network.connector.HiddenConnector;
@@ -9,23 +12,22 @@ import es.granainopowa.neural_network.connector.HiddenConnector;
  * 21 abr. 2018
  *
  */
-public class HiddenLayer extends Layer {
+public class HiddenLayer extends Layer<HiddenNeuron> {
 
-	public HiddenLayer(int neuronCount, Layer previousLayer) {
-		super(getNeurons(neuronCount, previousLayer));
+	public HiddenLayer(int neuronCount, Layer<? extends Neuron> previousLayer) {
+		super(createNeurons(neuronCount, previousLayer));
 	}
 
-	private static Neuron[] getNeurons(int neuronCount, Layer previousLayer) {
-		Neuron[] neurons = new Neuron[neuronCount];
-
+	private static List<HiddenNeuron> createNeurons(int neuronCount, Layer<? extends Neuron> previousLayer) {
+		List<HiddenNeuron> neurons = new ArrayList<>();
+		// create neuronCount neurons
 		for (int i = 0; i < neuronCount; i++) {
-			Neuron[] previousNeurons = previousLayer.neurons;
-			HiddenConnector[] hiddenConnectors = new HiddenConnector[previousNeurons.length];
-			for (int j = 0; j < previousNeurons.length; j++) {
-				Neuron previousNeuron = previousNeurons[j];
-				hiddenConnectors[j] = new HiddenConnector(previousNeuron);
+			List<HiddenConnector> hiddenConnectors = new ArrayList<>();
+			// each new neuron has a connector to each neuron of the previous layer
+			for (Neuron previousNeuron : previousLayer.neurons) {
+				hiddenConnectors.add(new HiddenConnector(previousNeuron));
 			}
-			neurons[i] = new HiddenNeuron(hiddenConnectors);
+			neurons.add(new HiddenNeuron(hiddenConnectors));
 		}
 
 		return neurons;

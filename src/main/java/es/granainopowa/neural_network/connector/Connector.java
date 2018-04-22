@@ -2,8 +2,6 @@ package es.granainopowa.neural_network.connector;
 
 import java.util.Random;
 
-import es.granainopowa.neural_network.base.neuron.Neuron;
-
 /**
  * @author Rafael Jiménez
  * 21 abr. 2018

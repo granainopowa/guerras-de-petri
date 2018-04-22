@@ -1,5 +1,8 @@
 package es.granainopowa.neural_network.layer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.granainopowa.neural_network.base.neuron.Neuron;
 
 /**
@@ -7,27 +10,29 @@ import es.granainopowa.neural_network.base.neuron.Neuron;
  * 19 abr. 2018
  *
  */
-public abstract class Layer {
+public abstract class Layer<T extends Neuron> {
 
-	protected Neuron[] neurons;
+	protected List<T> neurons;
 
-	protected Layer(Neuron[] neurons) {
+	protected Layer(List<T> neurons) {
 		this.neurons = neurons;
 	}
 
+	public int neuronCount() {
+		return neurons.size();
+	}
+
 	public final void compute() {
-		for (Neuron neuron : this.neurons) {
+		for (T neuron : this.neurons) {
 			neuron.computeOutput();
 		}
 	}
 
-	public double[] getOutputs() {
-		int neuronsCount = this.neurons.length;
-		double[] outputs = new double[neuronsCount];
+	public List<Double> getOutputs() {
+		List<Double> outputs = new ArrayList<>();
 
-		for (int i = 0; i <= neuronsCount; i++) {
-			Neuron neuron = this.neurons[i];
-			outputs[i] = neuron.getOutput();
+		for (T neuron : neurons) {
+			outputs.add(neuron.getOutput());
 		}
 
 		return outputs;
