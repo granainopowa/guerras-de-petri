@@ -41,6 +41,25 @@ public class Network {
 		createNetwork(inputCount, outputCount, new ArrayList<>());
 	}
 
+	public void computeNetwork(double... inputs) {
+		inputLayer.setInputs(inputs);
+		inputLayer.compute();
+		for (HiddenLayer layer : this.hiddenLayers) {
+			layer.compute();
+		}
+	}
+
+	public List<Double> getNetworkOutputs() {
+		int lastLayerIndex = this.hiddenLayers.size() - 1;
+		HiddenLayer lastLayer = this.hiddenLayers.get(lastLayerIndex);
+
+		return lastLayer.getOutputs();
+	}
+
+	protected List<HiddenLayer> getLayers() {
+		return this.hiddenLayers;
+	}
+
 	private void createNetwork(int inputCount, int outputCount, List<Integer> hiddenLayersNeuronCount) {
 		if (inputCount < 1) {
 			throw new IllegalStateException("At least one input is needed");
@@ -62,20 +81,4 @@ public class Network {
 			previousLayer = layer;
 		}
 	}
-
-	public void computeNetwork(double... inputs) {
-		inputLayer.setInputs(inputs);
-		inputLayer.compute();
-		for (HiddenLayer layer : this.hiddenLayers) {
-			layer.compute();
-		}
-	}
-
-	public List<Double> getNetworkOutputs() {
-		int lastLayerIndex = this.hiddenLayers.size() - 1;
-		HiddenLayer lastLayer = this.hiddenLayers.get(lastLayerIndex);
-
-		return lastLayer.getOutputs();
-	}
-
 }

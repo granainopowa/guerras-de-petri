@@ -3,7 +3,7 @@ package es.granainopowa.neural_network.layer;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.granainopowa.neural_network.connector.HiddenConnector;
+import es.granainopowa.neural_network.connector.Connector;
 import es.granainopowa.neural_network.neuron.HiddenNeuron;
 import es.granainopowa.neural_network.neuron.Neuron;
 
@@ -22,10 +22,10 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 		List<HiddenNeuron> neurons = new ArrayList<>();
 		// create neuronCount neurons
 		for (int i = 0; i < neuronCount; i++) {
-			List<HiddenConnector> hiddenConnectors = new ArrayList<>();
+			List<Connector> hiddenConnectors = new ArrayList<>();
 			// each new neuron has a connector to each neuron of the previous layer
 			for (Neuron previousNeuron : previousLayer.neurons) {
-				hiddenConnectors.add(new HiddenConnector(previousNeuron));
+				hiddenConnectors.add(new Connector(previousNeuron));
 			}
 			neurons.add(new HiddenNeuron(hiddenConnectors));
 		}

@@ -1,5 +1,7 @@
 package es.granainopowa.neural_network.neuron;
 
+import es.granainopowa.neural_network.model.ModelDTO;
+
 /**
  * Neuron
  *
@@ -7,7 +9,7 @@ package es.granainopowa.neural_network.neuron;
  * 18 abr. 2018
  *
  */
-public abstract class Neuron {
+public abstract class Neuron implements ModelDTO {
 
 	private double output;
 
@@ -24,4 +26,5 @@ public abstract class Neuron {
 	private double sigmoid(double x) {
 		return 1 / (1 + Math.exp(-x));
 	}
+
 }
