@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.granainopowa.neural_network.layer.HiddenLayer;
+import es.granainopowa.neural_network.layer.HiddenLayerPOJO;
 import es.granainopowa.neural_network.layer.InputLayer;
 import es.granainopowa.neural_network.layer.Layer;
 import es.granainopowa.neural_network.neuron.Neuron;
@@ -24,21 +25,35 @@ public class Network {
 	 *
 	 * @param inputCount
 	 *            number of neurons in the input layer
-	 * @param outputCount
-	 *            number of neurons in the output layer
 	 * @param hiddenLayersNeuronCount
 	 *            array of hidden layers. For each value in the array, a layer is
 	 *            created with its number of neurons
+	 * @param outputCount
+	 *            number of neurons in the output layer
 	 */
-	public Network(int inputCount, int outputCount, List<Integer> hiddenLayersNeuronCount) {
+	public Network(int inputCount, List<Integer> hiddenLayersNeuronCount, int outputCount) {
 		if (hiddenLayersNeuronCount == null) {
 			throw new IllegalStateException("hiddenLayersNeuronCount cannot be null");
 		}
-		createNetwork(inputCount, outputCount, hiddenLayersNeuronCount);
+		createNetwork(inputCount, hiddenLayersNeuronCount, outputCount);
 	}
 
 	public Network(int inputCount, int outputCount) {
-		createNetwork(inputCount, outputCount, new ArrayList<>());
+		createNetwork(inputCount, new ArrayList<>(), outputCount);
+	}
+
+	public NetworkPOJO getPOJO() {
+		NetworkPOJO networkPOJO = new NetworkPOJO();
+		List<HiddenLayerPOJO> hiddenLayerPOJOs = new ArrayList<>();
+
+		for (HiddenLayer hiddenLayer : this.hiddenLayers) {
+			hiddenLayerPOJOs.add(hiddenLayer.getPOJO());
+		}
+
+		networkPOJO.setInputCount(this.inputLayer.getNeuronCount());
+		networkPOJO.setHiddenLayerPOJOs(hiddenLayerPOJOs);
+
+		return networkPOJO;
 	}
 
 	public void computeNetwork(double... inputs) {
@@ -60,7 +75,7 @@ public class Network {
 		return this.hiddenLayers;
 	}
 
-	private void createNetwork(int inputCount, int outputCount, List<Integer> hiddenLayersNeuronCount) {
+	private void createNetwork(int inputCount, List<Integer> hiddenLayersNeuronCount, int outputCount) {
 		if (inputCount < 1) {
 			throw new IllegalStateException("At least one input is needed");
 		}
@@ -72,7 +87,7 @@ public class Network {
 		hiddenLayersNeuronCount.add(outputCount);
 
 		this.inputLayer = new InputLayer(inputCount);
-		hiddenLayers = new ArrayList<>();
+		this.hiddenLayers = new ArrayList<>();
 
 		Layer<? extends Neuron> previousLayer = this.inputLayer;
 		for (Integer neuronCount : hiddenLayersNeuronCount) {
@@ -81,4 +96,5 @@ public class Network {
 			previousLayer = layer;
 		}
 	}
+
 }

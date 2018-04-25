@@ -1,5 +1,6 @@
 package es.granainopowa.neural_network.neuron;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.granainopowa.neural_network.connector.Connector;
@@ -15,6 +16,19 @@ public class HiddenNeuron extends Neuron {
 
 	public HiddenNeuron(List<Connector> inputs) {
 		this.inputs = inputs;
+	}
+
+	public HiddenNeuronPOJO getPOJO() {
+		HiddenNeuronPOJO hiddenNeuronPOJO = new HiddenNeuronPOJO();
+		List<Double> inputWeights = new ArrayList<>();
+
+		for (Connector connector : this.inputs) {
+			inputWeights.add(connector.getWeight());
+		}
+
+		hiddenNeuronPOJO.setInputWeights(inputWeights);
+
+		return hiddenNeuronPOJO;
 	}
 
 	@Override

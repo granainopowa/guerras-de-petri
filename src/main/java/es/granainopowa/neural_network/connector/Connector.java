@@ -14,8 +14,8 @@ import es.granainopowa.neural_network.neuron.Neuron;
 public class Connector {
 	private static final Random RANDOM = new Random();
 
-	private double weight;
 	private Neuron inputNeuron;
+	private double weight;
 
 	/**
 	 * Sets a random weight in the interval (-1, 1)
@@ -25,12 +25,17 @@ public class Connector {
 		this.inputNeuron = inputNeuron;
 	}
 
-	public final double getValue() {
-		return getConnectorInput() * this.weight;
+	public Connector(Neuron inputNeuron, double weight) {
+		this.weight = weight;
+		this.inputNeuron = inputNeuron;
 	}
 
-	protected double getConnectorInput() {
-		return inputNeuron.getOutput();
+	public Double getWeight() {
+		return this.weight;
+	}
+
+	public final double getValue() {
+		return inputNeuron.getOutput() * this.weight;
 	}
 
 }

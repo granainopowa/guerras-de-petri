@@ -19,7 +19,7 @@ public class InputLayer extends Layer<InputNeuron> {
 	}
 
 	public void setInputs(double... inputs) {
-		if (inputs == null || inputs.length != neuronCount()) {
+		if (inputs == null || inputs.length != getNeuronCount()) {
 			throw new IllegalStateException("Invalid input count for the layer");
 		}
 		for (int i = 0; i < inputs.length; i++) {

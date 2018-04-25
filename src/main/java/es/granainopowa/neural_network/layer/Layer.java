@@ -18,7 +18,7 @@ public abstract class Layer<T extends Neuron> {
 		this.neurons = neurons;
 	}
 
-	public int neuronCount() {
+	public int getNeuronCount() {
 		return neurons.size();
 	}
 

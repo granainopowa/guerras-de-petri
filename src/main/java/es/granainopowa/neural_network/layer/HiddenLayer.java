@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.granainopowa.neural_network.connector.Connector;
 import es.granainopowa.neural_network.neuron.HiddenNeuron;
+import es.granainopowa.neural_network.neuron.HiddenNeuronPOJO;
 import es.granainopowa.neural_network.neuron.Neuron;
 
 /**
@@ -16,6 +17,19 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 
 	public HiddenLayer(int neuronCount, Layer<? extends Neuron> previousLayer) {
 		super(createNeurons(neuronCount, previousLayer));
+	}
+
+	public HiddenLayerPOJO getPOJO() {
+		HiddenLayerPOJO hiddenLayerPOJO = new HiddenLayerPOJO();
+		List<HiddenNeuronPOJO> neuronPOJOs = new ArrayList<>();
+
+		for (HiddenNeuron hiddenNeuron : this.neurons) {
+			neuronPOJOs.add(hiddenNeuron.getPOJO());
+		}
+
+		hiddenLayerPOJO.setNeurons(neuronPOJOs);
+
+		return hiddenLayerPOJO;
 	}
 
 	private static List<HiddenNeuron> createNeurons(int neuronCount, Layer<? extends Neuron> previousLayer) {
@@ -32,4 +46,5 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 
 		return neurons;
 	}
+
 }
