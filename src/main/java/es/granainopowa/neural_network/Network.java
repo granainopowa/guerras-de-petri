@@ -42,6 +42,15 @@ public class Network {
 		createNetwork(inputCount, new ArrayList<>(), outputCount);
 	}
 
+	public Network(NetworkPOJO networkPOJO) {
+		if (networkPOJO == null) {
+			throw new IllegalStateException("networkPOJO cannot be null");
+		}
+		int inputCount = networkPOJO.getInputCount();
+		List<HiddenLayerPOJO> hiddenLayerPOJOs = networkPOJO.getHiddenLayerPOJOs();
+		createNetwork(inputCount, hiddenLayerPOJOs);
+	}
+
 	public NetworkPOJO getPOJO() {
 		NetworkPOJO networkPOJO = new NetworkPOJO();
 		List<HiddenLayerPOJO> hiddenLayerPOJOs = new ArrayList<>();
@@ -92,6 +101,25 @@ public class Network {
 		Layer<? extends Neuron> previousLayer = this.inputLayer;
 		for (Integer neuronCount : hiddenLayersNeuronCount) {
 			HiddenLayer layer = new HiddenLayer(neuronCount, previousLayer);
+			this.hiddenLayers.add(layer);
+			previousLayer = layer;
+		}
+	}
+
+	private void createNetwork(int inputCount, List<HiddenLayerPOJO> hiddenLayerPOJOs) {
+		if (inputCount < 1) {
+			throw new IllegalStateException("At least one input is needed");
+		}
+		if (hiddenLayerPOJOs.size() < 1) {
+			throw new IllegalStateException("At least one output is needed");
+		}
+
+		this.inputLayer = new InputLayer(inputCount);
+		this.hiddenLayers = new ArrayList<>();
+
+		Layer<? extends Neuron> previousLayer = this.inputLayer;
+		for (HiddenLayerPOJO hiddenLayerPOJO : hiddenLayerPOJOs) {
+			HiddenLayer layer = new HiddenLayer(previousLayer, hiddenLayerPOJO);
 			this.hiddenLayers.add(layer);
 			previousLayer = layer;
 		}
