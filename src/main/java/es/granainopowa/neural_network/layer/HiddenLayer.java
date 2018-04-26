@@ -19,6 +19,10 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 		super(createNeurons(neuronCount, previousLayer));
 	}
 
+	public HiddenLayer(Layer<? extends Neuron> previousLayer, HiddenLayerPOJO hiddenLayerPOJO) {
+		super(createNeurons(previousLayer, hiddenLayerPOJO));
+	}
+
 	public HiddenLayerPOJO getPOJO() {
 		HiddenLayerPOJO hiddenLayerPOJO = new HiddenLayerPOJO();
 		List<HiddenNeuronPOJO> neuronPOJOs = new ArrayList<>();
@@ -34,12 +38,34 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 
 	private static List<HiddenNeuron> createNeurons(int neuronCount, Layer<? extends Neuron> previousLayer) {
 		List<HiddenNeuron> neurons = new ArrayList<>();
+
 		// create neuronCount neurons
 		for (int i = 0; i < neuronCount; i++) {
 			List<Connector> hiddenConnectors = new ArrayList<>();
 			// each new neuron has a connector to each neuron of the previous layer
 			for (Neuron previousNeuron : previousLayer.neurons) {
 				hiddenConnectors.add(new Connector(previousNeuron));
+			}
+			neurons.add(new HiddenNeuron(hiddenConnectors));
+		}
+
+		return neurons;
+	}
+
+	private static List<HiddenNeuron> createNeurons(Layer<? extends Neuron> previousLayer, HiddenLayerPOJO hiddenLayerPOJO) {
+		List<HiddenNeuron> neurons = new ArrayList<>();
+		int previousLayerNeuronCount = previousLayer.getNeuronCount();
+
+		// create a neuron for each hiddenNeuronPOJO
+		for (HiddenNeuronPOJO hiddenNeuronPOJO : hiddenLayerPOJO.getNeuronPOJOs()) {
+			List<Double> inputWeights = hiddenNeuronPOJO.getInputWeights();
+			if (inputWeights.size() != previousLayerNeuronCount) {
+				throw new IllegalStateException("Cannot connect layers. Connectors and previous layer sizes are not the same");
+			}
+			List<Connector> hiddenConnectors = new ArrayList<>();
+			for (int i = 0; i < previousLayerNeuronCount; i++) {
+				Neuron previousNeuron = previousLayer.neurons.get(i);
+				hiddenConnectors.add(new Connector(previousNeuron, inputWeights.get(i)));
 			}
 			neurons.add(new HiddenNeuron(hiddenConnectors));
 		}
