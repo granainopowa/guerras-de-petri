@@ -44,7 +44,17 @@ public class NeuronTest {
 			throw new RuntimeException(e);
 		}
 
-		if (!(network.equals(parsedNetwork))) {
+		network.computeNetwork(2, 3, 4);
+		parsedNetwork.computeNetwork(2, 3, 4);
+
+		if (!(network.getNetworkOutputs().equals(parsedNetwork.getNetworkOutputs()))) {
+			fail("Parsed netros is not right");
+		}
+
+		network.computeNetwork(-2, -3, -4);
+		parsedNetwork.computeNetwork(-2, -3, -4);
+
+		if (!(network.getNetworkOutputs().equals(parsedNetwork.getNetworkOutputs()))) {
 			fail("Parsed netros is not right");
 		}
 	}
