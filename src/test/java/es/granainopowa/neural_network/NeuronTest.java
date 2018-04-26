@@ -24,7 +24,6 @@ public class NeuronTest {
 		list.add(5);
 		list.add(6);
 		Network network = new Network(3, list, 4);
-		NetworkPOJO readValue;
 
 		String networkJSON;
 
@@ -37,13 +36,17 @@ public class NeuronTest {
 		}
 
 		ObjectMapper mapper = new ObjectMapper();
+		Network parsedNetwork;
 		try {
-			readValue = mapper.readValue(networkJSON, NetworkPOJO.class);
+			NetworkPOJO parsedNetworkPOJO = mapper.readValue(networkJSON, NetworkPOJO.class);
+			parsedNetwork = new Network(parsedNetworkPOJO);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
-		fail("Not yet implemented");
+		if (!(network.equals(parsedNetwork))) {
+			fail("Parsed netros is not right");
+		}
 	}
 
 }
