@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 public class PetriDish extends JPanel {
 	private static final long serialVersionUID = -6727865483084967707L;
 
+	private static final int DISH_DIAMETER = 500;
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -40,14 +41,11 @@ public class PetriDish extends JPanel {
 		double w = size.getWidth();
 		double h = size.getHeight();
 
-		Ellipse2D e = new Ellipse2D.Double(0, 0, 80, 130);
+		Ellipse2D e = new Ellipse2D.Double(0, 0, DISH_DIAMETER, DISH_DIAMETER);
 		g2d.setStroke(new BasicStroke(1));
 		g2d.setColor(Color.gray);
 
-		for (double deg = 0; deg < 360; deg += 5) {
-			AffineTransform at = AffineTransform.getTranslateInstance(w / 2, h / 2);
-			at.rotate(Math.toRadians(deg));
-			g2d.draw(at.createTransformedShape(e));
-		}
+		AffineTransform at = AffineTransform.getTranslateInstance((w - DISH_DIAMETER) / 2, (h - DISH_DIAMETER) / 2);
+		g2d.draw(at.createTransformedShape(e));
 	}
 }

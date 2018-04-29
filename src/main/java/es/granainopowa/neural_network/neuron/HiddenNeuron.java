@@ -15,6 +15,9 @@ public class HiddenNeuron extends Neuron {
 	private List<Connector> inputs;
 
 	public HiddenNeuron(List<Connector> inputs) {
+		if (inputs == null || inputs.isEmpty()) {
+			throw new IllegalArgumentException("It is not possible to create a HiddenNeuron without input connectors");
+		}
 		this.inputs = inputs;
 	}
 

@@ -15,6 +15,9 @@ public abstract class Layer<T extends Neuron> {
 	protected List<T> neurons;
 
 	protected Layer(List<T> neurons) {
+		if (neurons == null || neurons.isEmpty()) {
+			throw new IllegalArgumentException("It is not possible to create a layer without neurons");
+		}
 		this.neurons = neurons;
 	}
 

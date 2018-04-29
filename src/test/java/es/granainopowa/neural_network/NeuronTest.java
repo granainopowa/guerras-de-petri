@@ -3,7 +3,6 @@ package es.granainopowa.neural_network;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,10 +20,8 @@ public class NeuronTest {
 
 	@Test
 	public void test() {
-		List<Integer> list = new ArrayList<>();
-		list.add(5);
-		list.add(6);
-		Network network = new Network(3, list, 4);
+		List<Integer> hiddenLayersNeuronCount = Arrays.asList(5, 6, 7, 6, 5);
+		Network network = new Network(3, hiddenLayersNeuronCount, 4);
 
 		String networkJSON;
 

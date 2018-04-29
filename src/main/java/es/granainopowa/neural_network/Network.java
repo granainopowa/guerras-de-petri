@@ -92,14 +92,16 @@ public class Network {
 			throw new IllegalStateException("At least one output is needed");
 		}
 
+		ArrayList<Integer> arrayList = new ArrayList<>(hiddenLayersNeuronCount);
+		
 		// add the output layer at the end of the hidden layers
-		hiddenLayersNeuronCount.add(outputCount);
+		arrayList.add(outputCount);
 
 		this.inputLayer = new InputLayer(inputCount);
 		this.hiddenLayers = new ArrayList<>();
 
 		Layer<? extends Neuron> previousLayer = this.inputLayer;
-		for (Integer neuronCount : hiddenLayersNeuronCount) {
+		for (Integer neuronCount : arrayList) {
 			HiddenLayer layer = new HiddenLayer(neuronCount, previousLayer);
 			this.hiddenLayers.add(layer);
 			previousLayer = layer;
