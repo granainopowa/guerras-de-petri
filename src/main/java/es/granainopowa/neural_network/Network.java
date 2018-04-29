@@ -65,7 +65,7 @@ public class Network {
 		return networkPOJO;
 	}
 
-	public void computeNetwork(double... inputs) {
+	public void computeNetwork(List<Double> inputs) {
 		inputLayer.setInputs(inputs);
 		inputLayer.compute();
 		for (HiddenLayer layer : this.hiddenLayers) {

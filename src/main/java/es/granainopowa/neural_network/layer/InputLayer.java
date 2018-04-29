@@ -18,12 +18,12 @@ public class InputLayer extends Layer<InputNeuron> {
 		super(createNeurons(neuronCount));
 	}
 
-	public void setInputs(double... inputs) {
-		if (inputs == null || inputs.length != getNeuronCount()) {
+	public void setInputs(List<Double> inputs) {
+		if (inputs == null || inputs.size() != getNeuronCount()) {
 			throw new IllegalStateException("Invalid input count for the layer");
 		}
-		for (int i = 0; i < inputs.length; i++) {
-			this.neurons.get(i).setInput(inputs[i]);
+		for (int i = 0; i < inputs.size(); i++) {
+			this.neurons.get(i).setInput(inputs.get(i));
 		}
 	}
 

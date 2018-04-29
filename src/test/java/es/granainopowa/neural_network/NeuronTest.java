@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -44,18 +45,18 @@ public class NeuronTest {
 			throw new RuntimeException(e);
 		}
 
-		network.computeNetwork(2, 3, 4);
-		parsedNetwork.computeNetwork(2, 3, 4);
+		compareNetworkOutputs(network, parsedNetwork, Arrays.asList(2d, 3d, 4d));
+		compareNetworkOutputs(network, parsedNetwork, Arrays.asList(-2d, -3d, -4d));
+	}
 
-		if (!(network.getNetworkOutputs().equals(parsedNetwork.getNetworkOutputs()))) {
-			fail("Parsed netros is not right");
-		}
+	private void compareNetworkOutputs(Network network1, Network network2, List<Double> inputs) {
+		network1.computeNetwork(inputs);
+		network2.computeNetwork(inputs);
 
-		network.computeNetwork(-2, -3, -4);
-		parsedNetwork.computeNetwork(-2, -3, -4);
-
-		if (!(network.getNetworkOutputs().equals(parsedNetwork.getNetworkOutputs()))) {
-			fail("Parsed netros is not right");
+		List<Double> outputs1 = network1.getNetworkOutputs();
+		List<Double> outputs2 = network2.getNetworkOutputs();
+		if (!(outputs1.equals(outputs2))) {
+			fail("Parsed network is not right");
 		}
 	}
 
