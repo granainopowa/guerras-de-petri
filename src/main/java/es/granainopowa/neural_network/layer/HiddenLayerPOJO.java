@@ -5,9 +5,7 @@ import java.util.List;
 import es.granainopowa.neural_network.neuron.HiddenNeuronPOJO;
 
 /**
- * @author Rafael Jiménez
- * 24 abr. 2018
- *
+ * @author Rafael Jiménez (24 abr. 2018)
  */
 public class HiddenLayerPOJO {
 

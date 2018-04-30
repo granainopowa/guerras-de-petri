@@ -9,9 +9,7 @@ import es.granainopowa.neural_network.neuron.HiddenNeuronPOJO;
 import es.granainopowa.neural_network.neuron.Neuron;
 
 /**
- * @author Rafael Jiménez
- * 21 abr. 2018
- *
+ * @author Rafael Jiménez (21 abr. 2018)
  */
 public class HiddenLayer extends Layer<HiddenNeuron> {
 
@@ -52,7 +50,8 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 		return neurons;
 	}
 
-	private static List<HiddenNeuron> createNeurons(Layer<? extends Neuron> previousLayer, HiddenLayerPOJO hiddenLayerPOJO) {
+	private static List<HiddenNeuron> createNeurons(Layer<? extends Neuron> previousLayer,
+			HiddenLayerPOJO hiddenLayerPOJO) {
 		List<HiddenNeuron> neurons = new ArrayList<>();
 		int previousLayerNeuronCount = previousLayer.getNeuronCount();
 
@@ -60,7 +59,8 @@ public class HiddenLayer extends Layer<HiddenNeuron> {
 		for (HiddenNeuronPOJO hiddenNeuronPOJO : hiddenLayerPOJO.getNeuronPOJOs()) {
 			List<Double> inputWeights = hiddenNeuronPOJO.getInputWeights();
 			if (inputWeights.size() != previousLayerNeuronCount) {
-				throw new IllegalStateException("Cannot connect layers. Connectors and previous layer sizes are not the same");
+				throw new IllegalStateException(
+						"Cannot connect layers. Connectors and previous layer sizes are not the same");
 			}
 			List<Connector> hiddenConnectors = new ArrayList<>();
 			for (int i = 0; i < previousLayerNeuronCount; i++) {

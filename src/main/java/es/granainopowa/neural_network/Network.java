@@ -12,8 +12,7 @@ import es.granainopowa.neural_network.neuron.Neuron;
 /**
  * Neural Network
  *
- * @author Rafael Jiménez 18 abr. 2018
- *
+ * @author Rafael Jiménez (18 abr. 2018)
  */
 public class Network {
 
@@ -93,7 +92,7 @@ public class Network {
 		}
 
 		ArrayList<Integer> arrayList = new ArrayList<>(hiddenLayersNeuronCount);
-		
+
 		// add the output layer at the end of the hidden layers
 		arrayList.add(outputCount);
 

@@ -7,10 +7,7 @@ import javax.swing.JFrame;
 import es.granainopowa.guerras_de_petri.gui.PetriDish;
 
 /**
- * 
- * @author Rafael Jiménez
- * 18 abr. 2018
- *
+ * @author Rafael Jiménez (18 abr. 2018)
  */
 public class GuerrasDePetriApplication extends JFrame {
 	private static final long serialVersionUID = -3420476485861654160L;

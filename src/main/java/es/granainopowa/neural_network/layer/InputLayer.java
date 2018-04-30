@@ -6,11 +6,9 @@ import java.util.List;
 import es.granainopowa.neural_network.neuron.InputNeuron;
 
 /**
- * <p>Creates an input layer.</p>
- * <p>.</p>
+ * <h1>Creates an input layer</h1>
  *
- * @author Rafael Jiménez
- * 19 abr. 2018
+ * @author Rafael Jiménez (19 abr. 2018)
  */
 public class InputLayer extends Layer<InputNeuron> {
 

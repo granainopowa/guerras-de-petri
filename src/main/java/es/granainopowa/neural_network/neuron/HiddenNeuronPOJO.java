@@ -3,9 +3,7 @@ package es.granainopowa.neural_network.neuron;
 import java.util.List;
 
 /**
- * @author Rafael Jiménez
- * 24 abr. 2018
- *
+ * @author Rafael Jiménez (24 abr. 2018)
  */
 public class HiddenNeuronPOJO {
 

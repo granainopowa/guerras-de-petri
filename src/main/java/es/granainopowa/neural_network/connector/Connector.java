@@ -7,9 +7,7 @@ import es.granainopowa.neural_network.neuron.Neuron;
 /**
  * Connection between neurons
  *
- * @author Rafael Jiménez
- * 18 abr. 2018
- *
+ * @author Rafael Jiménez (18 abr. 2018)
  */
 public class Connector {
 	private static final Random RANDOM = new Random();

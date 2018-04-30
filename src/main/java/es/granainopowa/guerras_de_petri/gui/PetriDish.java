@@ -12,14 +12,13 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JPanel;
 
 /**
- * @author Rafael Jiménez
- * 29 abr. 2018
- *
+ * @author Rafael Jiménez (29 abr. 2018)
  */
 public class PetriDish extends JPanel {
 	private static final long serialVersionUID = -6727865483084967707L;
 
 	private static final int DISH_DIAMETER = 500;
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

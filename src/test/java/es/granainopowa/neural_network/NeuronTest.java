@@ -12,9 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 
- * @author Rafael Jiménez 18 abr. 2018
- *
+ * @author Rafael Jiménez (18 abr. 2018)
  */
 public class NeuronTest {
 

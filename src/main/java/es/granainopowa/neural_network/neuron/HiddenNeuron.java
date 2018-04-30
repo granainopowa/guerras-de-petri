@@ -6,9 +6,7 @@ import java.util.List;
 import es.granainopowa.neural_network.connector.Connector;
 
 /**
- * @author Rafael Jiménez
- * 21 abr. 2018
- *
+ * @author Rafael Jiménez (21 abr. 2018)
  */
 public class HiddenNeuron extends Neuron {
 
