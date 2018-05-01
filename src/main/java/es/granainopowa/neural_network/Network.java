@@ -18,6 +18,7 @@ public class Network {
 
 	private InputLayer inputLayer;
 	private List<HiddenLayer> hiddenLayers;
+	private HiddenLayer outputLayer;
 
 	/**
 	 * Creates a neural network with as many layers as parameters.
@@ -47,7 +48,8 @@ public class Network {
 		}
 		int inputCount = networkPOJO.getInputCount();
 		List<HiddenLayerPOJO> hiddenLayerPOJOs = networkPOJO.getHiddenLayerPOJOs();
-		createNetwork(inputCount, hiddenLayerPOJOs);
+		HiddenLayerPOJO outputLayerPOJO = networkPOJO.getOutputLayerPOJO();
+		createNetwork(inputCount, hiddenLayerPOJOs, outputLayerPOJO);
 	}
 
 	public NetworkPOJO getPOJO() {
@@ -60,6 +62,7 @@ public class Network {
 
 		networkPOJO.setInputCount(this.inputLayer.getNeuronCount());
 		networkPOJO.setHiddenLayerPOJOs(hiddenLayerPOJOs);
+		networkPOJO.setOutputLayerPOJO(outputLayer.getPOJO());
 
 		return networkPOJO;
 	}
@@ -79,8 +82,16 @@ public class Network {
 		return lastLayer.getOutputs();
 	}
 
-	protected List<HiddenLayer> getLayers() {
-		return this.hiddenLayers;
+	protected InputLayer getInputLayer() {
+		return inputLayer;
+	}
+
+	protected List<HiddenLayer> getHiddenLayers() {
+		return hiddenLayers;
+	}
+
+	protected HiddenLayer getOutputLayer() {
+		return outputLayer;
 	}
 
 	private void createNetwork(int inputCount, List<Integer> hiddenLayersNeuronCount, int outputCount) {
@@ -91,23 +102,19 @@ public class Network {
 			throw new IllegalStateException("At least one output is needed");
 		}
 
-		ArrayList<Integer> arrayList = new ArrayList<>(hiddenLayersNeuronCount);
-
-		// add the output layer at the end of the hidden layers
-		arrayList.add(outputCount);
-
 		this.inputLayer = new InputLayer(inputCount);
 		this.hiddenLayers = new ArrayList<>();
 
 		Layer<? extends Neuron> previousLayer = this.inputLayer;
-		for (Integer neuronCount : arrayList) {
+		for (Integer neuronCount : hiddenLayersNeuronCount) {
 			HiddenLayer layer = new HiddenLayer(neuronCount, previousLayer);
 			this.hiddenLayers.add(layer);
 			previousLayer = layer;
 		}
+		this.outputLayer = new HiddenLayer(outputCount, previousLayer);
 	}
 
-	private void createNetwork(int inputCount, List<HiddenLayerPOJO> hiddenLayerPOJOs) {
+	private void createNetwork(int inputCount, List<HiddenLayerPOJO> hiddenLayerPOJOs, HiddenLayerPOJO outputLayerPOJO) {
 		if (inputCount < 1) {
 			throw new IllegalStateException("At least one input is needed");
 		}
@@ -124,6 +131,7 @@ public class Network {
 			this.hiddenLayers.add(layer);
 			previousLayer = layer;
 		}
+		this.outputLayer = new HiddenLayer(previousLayer, outputLayerPOJO);
 	}
 
 }

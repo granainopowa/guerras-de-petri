@@ -11,6 +11,9 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.granainopowa.neural_network.layer.HiddenLayer;
+import es.granainopowa.neural_network.layer.InputLayer;
+
 /**
  * @author Rafael Jiménez (18 abr. 2018)
  */
@@ -18,7 +21,7 @@ public class NeuronTest {
 
 	@Test
 	public void test() {
-		List<Integer> hiddenLayersNeuronCount = Arrays.asList(5, 6, 7, 6, 5);
+		List<Integer> hiddenLayersNeuronCount = Arrays.asList(5, 6);
 		Network network = new Network(3, hiddenLayersNeuronCount, 4);
 
 		String networkJSON;
@@ -38,6 +41,32 @@ public class NeuronTest {
 			parsedNetwork = new Network(parsedNetworkPOJO);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		}
+
+		InputLayer inputLayer = network.getInputLayer();
+		InputLayer parsedInputLayer = parsedNetwork.getInputLayer();
+		if (inputLayer.getNeuronCount() != parsedInputLayer.getNeuronCount()) {
+			fail("not same input count");
+		}
+
+		List<HiddenLayer> layers = network.getHiddenLayers();
+		List<HiddenLayer> parsedLayers = parsedNetwork.getHiddenLayers();
+		if (layers.size() != parsedLayers.size()) {
+			fail("not same layers count");
+		}
+
+		for (int i = 0; i < layers.size(); i++) {
+			HiddenLayer hiddenLayer = layers.get(i);
+			HiddenLayer parsedHiddenLayer = parsedLayers.get(i);
+			if (hiddenLayer.getNeuronCount() != parsedHiddenLayer.getNeuronCount()) {
+				fail("not same neuron count in the hidden layer " + i);
+			}
+		}
+
+		HiddenLayer outputLayer = network.getOutputLayer();
+		HiddenLayer parsedOutputLayer = parsedNetwork.getOutputLayer();
+		if (outputLayer.getNeuronCount() != parsedOutputLayer.getNeuronCount()) {
+			fail("not same output count");
 		}
 
 		compareNetworkOutputs(network, parsedNetwork, Arrays.asList(2d, 3d, 4d));

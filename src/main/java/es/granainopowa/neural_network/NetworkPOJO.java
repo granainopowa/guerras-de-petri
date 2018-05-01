@@ -11,6 +11,7 @@ public class NetworkPOJO {
 
 	private int inputCount;
 	private List<HiddenLayerPOJO> hiddenLayerPOJOs;
+	private HiddenLayerPOJO outputLayerPOJO;
 
 	public int getInputCount() {
 		return inputCount;
@@ -26,6 +27,14 @@ public class NetworkPOJO {
 
 	public void setHiddenLayerPOJOs(List<HiddenLayerPOJO> hiddenLayerPOJOs) {
 		this.hiddenLayerPOJOs = hiddenLayerPOJOs;
+	}
+
+	public HiddenLayerPOJO getOutputLayerPOJO() {
+		return outputLayerPOJO;
+	}
+
+	public void setOutputLayerPOJO(HiddenLayerPOJO outputLayerPOJO) {
+		this.outputLayerPOJO = outputLayerPOJO;
 	}
 
 }

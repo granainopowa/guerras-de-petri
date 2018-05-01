@@ -1,7 +1,10 @@
 package es.granainopowa.guerras_de_petri.bacteria;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import es.granainopowa.guerras_de_petri.bacteria.appendix.input.InputAppendix;
+import es.granainopowa.guerras_de_petri.bacteria.appendix.output.OutputAppendix;
 import es.granainopowa.neural_network.Network;
 
 /**
@@ -13,25 +16,28 @@ public abstract class Bacteria {
 	private int y;
 	private int angle;
 	private Network network;
+	private List<InputAppendix> inputAppendixes;
 	private List<OutputAppendix> outputAppendixes;
 
-	protected Bacteria(int inputCount, List<Integer> hiddenLayersNeuronCount, int outputCount) {
-		this.network = new Network(inputCount, hiddenLayersNeuronCount, outputCount);
+	protected Bacteria(
+			List<Class<? extends InputAppendix>> inputAppendixClasses,
+			List<Integer> hiddenLayersNeuronCount,
+			List<Class<? extends OutputAppendix>> outputAppendixClasses) {
+		this.network = new Network(inputAppendixes.size(), hiddenLayersNeuronCount, outputAppendixes.size());
+		this.inputAppendixes = new ArrayList<>();
+		this.outputAppendixes = new ArrayList<>();
 	}
 
 	public int getX() {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void moveToPosition(int x, int y) {
+		this.x = x;
 		this.y = y;
 	}
 
@@ -43,8 +49,7 @@ public abstract class Bacteria {
 		this.angle = angle;
 	}
 
-	protected List<Double> getOutputs(List<Double> inputs) {
-		network.computeNetwork(inputs);
-		return network.getNetworkOutputs();
+	public void step() {
+
 	}
 }

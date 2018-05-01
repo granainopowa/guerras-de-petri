@@ -15,5 +15,4 @@ public class InputNeuron extends Neuron {
 	protected double getInput() {
 		return this.input;
 	}
-
 }
