@@ -1,5 +1,7 @@
 package es.granainopowa.guerras_de_petri.bacteria;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,18 @@ public abstract class Bacteria {
 			List<Class<? extends OutputAppendix>> outputAppendixClasses) {
 		this.network = new Network(inputAppendixes.size(), hiddenLayersNeuronCount, outputAppendixes.size());
 		this.inputAppendixes = new ArrayList<>();
+
+		for (Class<? extends InputAppendix> clazz : inputAppendixClasses) {
+			try {
+				Constructor<? extends InputAppendix> declaredConstructor = clazz.getDeclaredConstructor(Bacteria.class);
+				this.inputAppendixes.add(declaredConstructor.newInstance(this));
+			} catch (NoSuchMethodException | SecurityException e) {
+				throw new IllegalStateException("Could not find a valid constructor for " + clazz.getName(), e);
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				throw new IllegalStateException("Could not instantiate the " + clazz.getName(), e);
+			}
+		}
 		this.outputAppendixes = new ArrayList<>();
 	}
 
@@ -50,6 +64,8 @@ public abstract class Bacteria {
 	}
 
 	public void step() {
-
+		for (InputAppendix inputAppendix : inputAppendixes) {
+			
+		}
 	}
 }
