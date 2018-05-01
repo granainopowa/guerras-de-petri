@@ -1,6 +1,7 @@
 package es.granainopowa.guerras_de_petri.bacteria.appendix.input;
 
 import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
+import es.granainopowa.guerras_de_petri.bacteria.appendix.BacteriaAppendix;
 
 /**
  * <h1>This is being used for input appendices of bacterias.</h1>
@@ -10,17 +11,7 @@ import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
  *
  * @author Rafael Jiménez (30 abr. 2018)
  */
-public abstract class InputAppendix {
+public interface InputAppendix extends BacteriaAppendix {
 
-	private Bacteria host;
-
-	protected InputAppendix(Bacteria host) {
-		this.host = host;
-	}
-
-	protected Bacteria getHost() {
-		return host;
-	}
-
-	public abstract double getInput();
+	public double getInput(Bacteria host);
 }
