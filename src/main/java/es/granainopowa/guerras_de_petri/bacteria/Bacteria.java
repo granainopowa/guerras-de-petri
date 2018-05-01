@@ -64,8 +64,10 @@ public abstract class Bacteria {
 	}
 
 	public void step() {
+		List<Double> inputs = new ArrayList<>();
 		for (InputAppendix inputAppendix : inputAppendixes) {
-			
+			inputs.add(inputAppendix.getInput());
 		}
+		network.computeNetwork(inputs);
 	}
 }
