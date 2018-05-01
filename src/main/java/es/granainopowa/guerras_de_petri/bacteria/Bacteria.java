@@ -18,20 +18,24 @@ public abstract class Bacteria {
 	private int y;
 	private int angle;
 	private Network network;
-	private List<InputAppendix> inputAppendixes;
-	private List<OutputAppendix> outputAppendixes;
+	private List<InputAppendix> inputAppendices;
+	private List<OutputAppendix> outputAppendices;
 
 	protected Bacteria(
 			List<Class<? extends InputAppendix>> inputAppendixClasses,
 			List<Integer> hiddenLayersNeuronCount,
 			List<Class<? extends OutputAppendix>> outputAppendixClasses) {
-		this.network = new Network(inputAppendixes.size(), hiddenLayersNeuronCount, outputAppendixes.size());
-		this.inputAppendixes = new ArrayList<>();
+		this.network = new Network(inputAppendices.size(), hiddenLayersNeuronCount, outputAppendices.size());
+		this.inputAppendices = instanceInputAppendices(inputAppendixClasses);
+		this.outputAppendices = new ArrayList<>();
+	}
 
+	private List<InputAppendix> instanceInputAppendices(List<Class<? extends InputAppendix>> inputAppendixClasses) {
+		List<InputAppendix> result = new ArrayList<>();
 		for (Class<? extends InputAppendix> clazz : inputAppendixClasses) {
 			try {
 				Constructor<? extends InputAppendix> declaredConstructor = clazz.getDeclaredConstructor(Bacteria.class);
-				this.inputAppendixes.add(declaredConstructor.newInstance(this));
+				result.add(declaredConstructor.newInstance(this));
 			} catch (NoSuchMethodException | SecurityException e) {
 				throw new IllegalStateException("Could not find a valid constructor for " + clazz.getName(), e);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
@@ -39,7 +43,8 @@ public abstract class Bacteria {
 				throw new IllegalStateException("Could not instantiate the " + clazz.getName(), e);
 			}
 		}
-		this.outputAppendixes = new ArrayList<>();
+
+		return result;
 	}
 
 	public int getX() {
@@ -65,7 +70,7 @@ public abstract class Bacteria {
 
 	public void step() {
 		List<Double> inputs = new ArrayList<>();
-		for (InputAppendix inputAppendix : inputAppendixes) {
+		for (InputAppendix inputAppendix : inputAppendices) {
 			inputs.add(inputAppendix.getInput());
 		}
 		network.computeNetwork(inputs);
