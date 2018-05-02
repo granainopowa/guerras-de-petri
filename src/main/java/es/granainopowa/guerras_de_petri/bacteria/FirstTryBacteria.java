@@ -16,12 +16,7 @@ public class FirstTryBacteria extends Bacteria {
 
 	public FirstTryBacteria() {
 		super(createInputAppendices(),
-				createHiddenLayersNeuronCount(),
 				createOutputAppendices());
-	}
-
-	private static List<Integer> createHiddenLayersNeuronCount() {
-		return Arrays.asList(3, 4, 3);
 	}
 
 	private static List<InputAppendix> createInputAppendices() {

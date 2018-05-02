@@ -1,6 +1,9 @@
 package es.granainopowa.guerras_de_petri.bacteria;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import es.granainopowa.guerras_de_petri.bacteria.appendix.input.InputAppendix;
@@ -14,16 +17,19 @@ public abstract class Bacteria {
 
 	private int x;
 	private int y;
-	private int angle;
+	private int angle = 0;
 	private Network network;
 	private List<InputAppendix> inputAppendices;
 	private List<OutputAppendix> outputAppendices;
 
 	protected Bacteria(
 			List<InputAppendix> inputAppendices,
-			List<Integer> hiddenLayersNeuronCount,
 			List<OutputAppendix> outputAppendices) {
-		this.network = new Network(inputAppendices.size(), hiddenLayersNeuronCount, outputAppendices.size());
+		List<Integer> hiddenLayersNeuronCount = Arrays.asList(3, 4, 3);
+		this.network = new Network(
+				inputAppendices.size(),
+				hiddenLayersNeuronCount,
+				outputAppendices.size());
 		this.inputAppendices = inputAppendices;
 		this.outputAppendices = outputAppendices;
 	}
@@ -60,5 +66,9 @@ public abstract class Bacteria {
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			outputAppendices.get(i).react(this, networkOutputs.get(i));
 		}
+	}
+
+	public void draw(Graphics2D graphics, Dimension windowSize) {
+
 	}
 }
