@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +61,10 @@ public class PetriDish extends JPanel {
 		g2d.setColor(Color.gray);
 		AffineTransform at = AffineTransform.getTranslateInstance((w - DISH_DIAMETER) / 2, (h - DISH_DIAMETER) / 2);
 		g2d.draw(at.createTransformedShape(e));
+
+		Line2D line = new Line2D.Double(0, 0, w, h);
+		g2d.draw(line);
+		line = new Line2D.Double(0, h, w, 0);
+		g2d.draw(line);
 	}
 }
