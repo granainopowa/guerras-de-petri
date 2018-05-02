@@ -3,7 +3,6 @@ package es.granainopowa.guerras_de_petri.bacteria;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.granainopowa.guerras_de_petri.bacteria.appendix.BacteriaAppendix;
 import es.granainopowa.guerras_de_petri.bacteria.appendix.input.InputAppendix;
 import es.granainopowa.guerras_de_petri.bacteria.appendix.output.OutputAppendix;
 import es.granainopowa.neural_network.Network;
@@ -20,11 +19,13 @@ public abstract class Bacteria {
 	private List<InputAppendix> inputAppendices;
 	private List<OutputAppendix> outputAppendices;
 
-	protected Bacteria(List<Class<InputAppendix>> inputAppendixClasses, List<Integer> hiddenLayersNeuronCount,
-			List<Class<OutputAppendix>> outputAppendixClasses) {
+	protected Bacteria(
+			List<InputAppendix> inputAppendices,
+			List<Integer> hiddenLayersNeuronCount,
+			List<OutputAppendix> outputAppendices) {
 		this.network = new Network(inputAppendices.size(), hiddenLayersNeuronCount, outputAppendices.size());
-		this.inputAppendices = createAppendices(inputAppendixClasses);
-		this.outputAppendices = createAppendices(outputAppendixClasses);
+		this.inputAppendices = inputAppendices;
+		this.outputAppendices = outputAppendices;
 	}
 
 	public int getX() {
@@ -59,18 +60,5 @@ public abstract class Bacteria {
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			outputAppendices.get(i).react(this, networkOutputs.get(i));
 		}
-	}
-
-	private <T extends BacteriaAppendix> List<T> createAppendices(List<Class<T>> inputAppendixClasses) {
-		List<T> result = new ArrayList<>();
-		for (Class<T> clazz : inputAppendixClasses) {
-			try {
-				result.add(clazz.newInstance());
-			} catch (InstantiationException | IllegalAccessException e) {
-				throw new IllegalStateException("Could not instantiate the " + clazz.getName(), e);
-			}
-		}
-
-		return result;
 	}
 }
