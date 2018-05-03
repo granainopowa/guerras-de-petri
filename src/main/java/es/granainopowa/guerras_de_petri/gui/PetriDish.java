@@ -22,13 +22,22 @@ import es.granainopowa.guerras_de_petri.bacteria.FirstTryBacteria;
  */
 public class PetriDish extends JPanel {
 	private static final long serialVersionUID = -6727865483084967707L;
-
-	private static final int DISH_DIAMETER = 500;
+	private static final int DISH_RADIUS = 300;
+	private static final int DISH_DIAMETER = 2 * DISH_RADIUS;
 
 	List<Bacteria> bacterias = new ArrayList<>();
 
 	public PetriDish() {
-		this.bacterias.add(new FirstTryBacteria());
+		FirstTryBacteria bac1 = new FirstTryBacteria();
+		FirstTryBacteria bac2 = new FirstTryBacteria();
+		this.bacterias.add(bac1);
+		this.bacterias.add(bac2);
+		bac1.moveToPosition(100, 10);
+		bac1.setColor(Color.green);
+		
+		bac2.moveToPosition(-100, -10);
+		bac2.setAngle(-1);
+		bac2.setColor(Color.red);
 	}
 
 	@Override
@@ -41,30 +50,34 @@ public class PetriDish extends JPanel {
 		g2d.setRenderingHints(rh);
 
 		Dimension windowSize = getSize();
+		AffineTransform centerTransform = AffineTransform.getTranslateInstance(
+				windowSize.getWidth() / 2,
+				windowSize.getHeight() / 2);
 
-		drawPetriDish(g2d, windowSize);
-		drawBacterias(g2d, windowSize);
+		drawPetriDish(g2d, centerTransform);
+		drawBacterias(g2d, centerTransform);
+
+		// Only for testing purposes. Show the center :)
+		g2d.setStroke(new BasicStroke(1));
+		g2d.setColor(Color.gray);
+		Line2D line = new Line2D.Double(0, 0, windowSize.getWidth(), windowSize.getHeight());
+		g2d.draw(line);
+		line = new Line2D.Double(0, windowSize.getHeight(), windowSize.getWidth(), 0);
+		g2d.draw(line);
 	}
 
-	private void drawBacterias(Graphics2D g2d, Dimension windowSize) {
+	private void drawBacterias(Graphics2D g2d, AffineTransform affineTransform) {
 		for (Bacteria bacteria : bacterias) {
-			bacteria.draw(g2d, windowSize);
+			bacteria.draw(g2d, affineTransform);
 		}
 	}
 
-	private void drawPetriDish(Graphics2D g2d, Dimension windowSize) {
-		double w = windowSize.getWidth();
-		double h = windowSize.getHeight();
-
-		Ellipse2D e = new Ellipse2D.Double(0, 0, DISH_DIAMETER, DISH_DIAMETER);
+	private void drawPetriDish(Graphics2D g2d, AffineTransform affineTransform) {
+		Ellipse2D e = new Ellipse2D.Double(-DISH_RADIUS, -DISH_RADIUS, DISH_DIAMETER, DISH_DIAMETER);
+		Ellipse2D eC = new Ellipse2D.Double(-10, -10, 20, 20);
 		g2d.setStroke(new BasicStroke(1));
 		g2d.setColor(Color.gray);
-		AffineTransform at = AffineTransform.getTranslateInstance((w - DISH_DIAMETER) / 2, (h - DISH_DIAMETER) / 2);
-		g2d.draw(at.createTransformedShape(e));
-
-		Line2D line = new Line2D.Double(0, 0, w, h);
-		g2d.draw(line);
-		line = new Line2D.Double(0, h, w, 0);
-		g2d.draw(line);
+		g2d.draw(affineTransform.createTransformedShape(e));
+		g2d.draw(affineTransform.createTransformedShape(eC));
 	}
 }
