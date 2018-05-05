@@ -1,5 +1,6 @@
 package es.granainopowa.guerras_de_petri;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ public class GuerrasDePetriApplication extends JFrame {
 
 	private void initUI() {
 
+		setBackground(Color.black);
 		add(new PetriDish());
 
 		setSize(600, 600);
