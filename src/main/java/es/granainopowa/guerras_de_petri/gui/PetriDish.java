@@ -6,13 +6,16 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
 import es.granainopowa.guerras_de_petri.bacteria.FirstTryBacteria;
@@ -20,24 +23,36 @@ import es.granainopowa.guerras_de_petri.bacteria.FirstTryBacteria;
 /**
  * @author Rafael Jiménez (29 abr. 2018)
  */
-public class PetriDish extends JPanel {
+public class PetriDish extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -6727865483084967707L;
 	private static final int DISH_RADIUS = 300;
 	private static final int DISH_DIAMETER = 2 * DISH_RADIUS;
+	private final int DELAY = 25;
 
 	List<Bacteria> bacterias = new ArrayList<>();
+	private Timer timer;
 
 	public PetriDish() {
+		timer = new Timer(DELAY, this);
+		timer.start();
+
 		FirstTryBacteria bac1 = new FirstTryBacteria();
 		FirstTryBacteria bac2 = new FirstTryBacteria();
 		this.bacterias.add(bac1);
 		this.bacterias.add(bac2);
-		bac1.moveToPosition(100, 10);
+		bac1.setPosition(new Point2D.Double(0, 0));
 		bac1.setColor(Color.green);
-		
-		bac2.moveToPosition(-100, -10);
-		bac2.setAngle(-1);
+		bac1.setDestination(new Point2D.Double(0, -100));
+
+		bac2.setPosition(new Point2D.Double(-100, -10));
+		bac2.setDestination(new Point2D.Double(-100, -110));
+		bac2.setAngle(90);
 		bac2.setColor(Color.red);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		repaint();
 	}
 
 	@Override
@@ -50,25 +65,18 @@ public class PetriDish extends JPanel {
 		g2d.setRenderingHints(rh);
 
 		Dimension windowSize = getSize();
-		AffineTransform centerTransform = AffineTransform.getTranslateInstance(
+		AffineTransform petriDishCenterTransform = AffineTransform.getTranslateInstance(
 				windowSize.getWidth() / 2,
 				windowSize.getHeight() / 2);
 
-		drawPetriDish(g2d, centerTransform);
-		drawBacterias(g2d, centerTransform);
-
-		// Only for testing purposes. Show the center :)
-		g2d.setStroke(new BasicStroke(1));
-		g2d.setColor(Color.gray);
-		Line2D line = new Line2D.Double(0, 0, windowSize.getWidth(), windowSize.getHeight());
-		g2d.draw(line);
-		line = new Line2D.Double(0, windowSize.getHeight(), windowSize.getWidth(), 0);
-		g2d.draw(line);
+		drawPetriDish(g2d, petriDishCenterTransform);
+		drawBacterias(g2d, petriDishCenterTransform);
 	}
 
-	private void drawBacterias(Graphics2D g2d, AffineTransform affineTransform) {
+	private void drawBacterias(Graphics2D g2d, AffineTransform petriDishCenterTransform) {
 		for (Bacteria bacteria : bacterias) {
-			bacteria.draw(g2d, affineTransform);
+			bacteria.step();
+			bacteria.draw(g2d, petriDishCenterTransform);
 		}
 	}
 
@@ -80,4 +88,5 @@ public class PetriDish extends JPanel {
 		g2d.draw(affineTransform.createTransformedShape(e));
 		g2d.draw(affineTransform.createTransformedShape(eC));
 	}
+
 }

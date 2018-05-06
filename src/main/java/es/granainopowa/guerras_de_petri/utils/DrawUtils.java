@@ -1,4 +1,4 @@
-package es.granainopowa.guerras_de_petri.draw_utils;
+package es.granainopowa.guerras_de_petri.utils;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;

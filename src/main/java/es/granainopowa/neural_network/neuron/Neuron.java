@@ -1,5 +1,7 @@
 package es.granainopowa.neural_network.neuron;
 
+import es.granainopowa.guerras_de_petri.utils.ActivationFunction;
+
 /**
  * Neuron
  *
@@ -16,11 +18,7 @@ public abstract class Neuron {
 	}
 
 	public final void computeOutput() {
-		this.output = sigmoid(getInput());
-	}
-
-	private double sigmoid(double x) {
-		return 1 / (1 + Math.exp(-x));
+		this.output = ActivationFunction.sigmoid(getInput());
 	}
 
 }

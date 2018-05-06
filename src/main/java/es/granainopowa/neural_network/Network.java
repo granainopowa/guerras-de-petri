@@ -76,10 +76,7 @@ public class Network {
 	}
 
 	public List<Double> getNetworkOutputs() {
-		int lastLayerIndex = this.hiddenLayers.size() - 1;
-		HiddenLayer lastLayer = this.hiddenLayers.get(lastLayerIndex);
-
-		return lastLayer.getOutputs();
+		return outputLayer.getOutputs();
 	}
 
 	protected InputLayer getInputLayer() {

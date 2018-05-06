@@ -1,5 +1,7 @@
 package es.granainopowa.guerras_de_petri.bacteria.appendix.input;
 
+import java.util.List;
+
 import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
 import es.granainopowa.guerras_de_petri.bacteria.appendix.BacteriaAppendix;
 
@@ -11,7 +13,21 @@ import es.granainopowa.guerras_de_petri.bacteria.appendix.BacteriaAppendix;
  *
  * @author Rafael Jiménez (30 abr. 2018)
  */
-public interface InputAppendix extends BacteriaAppendix {
+public abstract class InputAppendix extends BacteriaAppendix {
 
-	public double getInput(Bacteria host);
+	/**
+	 * @param host
+	 *            owner of the InputAppendix
+	 * @param inputNeuronConnections
+	 *            number of network inputs needed by the InputAppendix type
+	 */
+	public InputAppendix(Bacteria host, int inputNeuronConnections) {
+		super(host, inputNeuronConnections);
+	}
+
+	/**
+	 * Gets the inputs needed for the InputAppendix type
+	 */
+	public abstract List<Double> getInputs();
+
 }
