@@ -98,6 +98,8 @@ public abstract class Bacteria {
 		DrawUtils.drawArrow(g2d, bacteriaTransform, center, arrowHead);
 	}
 
+	/* GETTERS */
+
 	/**
 	 * Gets an AffineTransform to move the origin of the Bacteria for drawing into
 	 * the PetriDish
@@ -105,15 +107,13 @@ public abstract class Bacteria {
 	 * @param affineTransform
 	 *            PetriDish based AffineTransform
 	 */
-	private AffineTransform getBacteriaTransform(AffineTransform affineTransform) {
+	public AffineTransform getBacteriaTransform(AffineTransform affineTransform) {
 		AffineTransform bacteriaTransform = new AffineTransform(affineTransform);
 		bacteriaTransform.translate(position.getX(), position.getY());
-		bacteriaTransform.rotate(Math.toRadians(angle));
+		bacteriaTransform.rotate(getAngleInRadians());
 
 		return bacteriaTransform;
 	}
-
-	/* GETTERS */
 
 	public Point2D getPosition() {
 		return position;
@@ -124,6 +124,13 @@ public abstract class Bacteria {
 	 */
 	public int getAngle() {
 		return angle;
+	}
+
+	/**
+	 * @return the angle (radians) of the bacteria
+	 */
+	public double getAngleInRadians() {
+		return Math.toRadians(angle);
 	}
 
 	public Color getColor() {

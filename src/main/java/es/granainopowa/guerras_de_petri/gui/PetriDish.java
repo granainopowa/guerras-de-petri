@@ -37,17 +37,18 @@ public class PetriDish extends JPanel implements ActionListener {
 		timer.start();
 
 		FirstTryBacteria bac1 = new FirstTryBacteria();
+		bac1.setPosition(new Point2D.Double(100, 0));
+		bac1.setColor(Color.green);
+		bac1.setDestination(new Point2D.Double(0, -150));
+
 		FirstTryBacteria bac2 = new FirstTryBacteria();
+		bac2.setPosition(new Point2D.Double(-100, 0));
+		bac2.setDestination(new Point2D.Double(100, -200));
+		bac2.setAngle(110);
+		bac2.setColor(Color.red);
+
 		this.bacterias.add(bac1);
 		this.bacterias.add(bac2);
-		bac1.setPosition(new Point2D.Double(0, 0));
-		bac1.setColor(Color.green);
-		bac1.setDestination(new Point2D.Double(0, -100));
-
-		bac2.setPosition(new Point2D.Double(-100, -10));
-		bac2.setDestination(new Point2D.Double(-100, -110));
-		bac2.setAngle(90);
-		bac2.setColor(Color.red);
 	}
 
 	@Override

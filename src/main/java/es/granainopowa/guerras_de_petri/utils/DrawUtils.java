@@ -13,11 +13,23 @@ public class DrawUtils {
 
 	public static void drawArrow(Graphics2D g2d, AffineTransform bacteriaTransform, Point2D origin, Point2D head) {
 		Line2D line = new Line2D.Double(origin, head);
-		Line2D arrowLine = new Line2D.Double(head, new Point2D.Double(head.getX() + 5, head.getY() + 10));
-		Line2D arrowLine2 = new Line2D.Double(head, new Point2D.Double(head.getX() - 5, head.getY() + 10));
 		g2d.draw(bacteriaTransform.createTransformedShape(line));
-		g2d.draw(bacteriaTransform.createTransformedShape(arrowLine));
-		g2d.draw(bacteriaTransform.createTransformedShape(arrowLine2));
+		drawArrowHead(g2d, bacteriaTransform, origin, head);
+	}
+	
+	private static void drawArrowHead(Graphics2D g2, AffineTransform bacteriaTransform, Point2D origin, Point2D head) {
+		double dy = head.getY() - origin.getY();
+		double dx = head.getX() - origin.getX();
+		double theta = Math.atan2(dy, dx);
+		// System.out.println("theta = " + Math.toDegrees(theta));
+		double phi = Math.toRadians(20);
+		double x, y, rho = theta + phi;
+		for (int j = 0; j < 2; j++) {
+			x = head.getX() - 10 * Math.cos(rho);
+			y = head.getY() - 10 * Math.sin(rho);
+			g2.draw(bacteriaTransform.createTransformedShape(new Line2D.Double(head.getX(), head.getY(), x, y)));
+			rho = theta - phi;
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package es.granainopowa.guerras_de_petri.bacteria.appendix.output;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
@@ -25,7 +26,8 @@ public class PawOutputAppendix extends OutputAppendix {
 
 	private int length = DEFAULT_LENGTH;
 	private int angleBacteriaRelative;
-	private double pawAngle;
+	private double acelerationReaction;
+	private double angleReaction;
 
 	/**
 	 * @param host
@@ -47,27 +49,40 @@ public class PawOutputAppendix extends OutputAppendix {
 		g2d.draw(pawTransform.createTransformedShape(line));
 	}
 
-	private AffineTransform getPawTransform(AffineTransform affineTransform) {
-		AffineTransform bacteriaTransform = new AffineTransform(affineTransform);
+	private AffineTransform getPawTransform(AffineTransform bacteriaTransform) {
+		AffineTransform pawTransform = new AffineTransform(bacteriaTransform);
 
 		double radians = Math.toRadians(angleBacteriaRelative);
-		bacteriaTransform.rotate(radians);
-		bacteriaTransform.translate(0, -getHost().getRadius());
+		pawTransform.rotate(radians);
+		pawTransform.translate(0, -getHost().getRadius());
 		// rotate from paw origin
-		bacteriaTransform.rotate(pawAngle);
+		pawTransform.rotate(angleReaction);
 
-		return bacteriaTransform;
+		return pawTransform;
 	}
 
 	@Override
 	public void reactToNetworkOutputs(List<Double> networkOutputs) {
 		// first parameter is aceleration [0, 1]
-		double aceleration = networkOutputs.get(0);
+		this.acelerationReaction = networkOutputs.get(0);
 		double angle = networkOutputs.get(1);
 		// convert [0, 1] to rank [-PI, PI]
-		this.pawAngle = 2 * (angle - 0.5) * Math.PI;
+		this.angleReaction = (angle - 0.5) * Math.PI;
 
-		// TODO MOVEMENT
+		Bacteria host = getHost();
+		double d = angleReaction + host.getAngleInRadians();
+
+		Point2D position = host.getPosition();
+
+		double x = Math.sin(d) * acelerationReaction;
+		double y = Math.cos(d) * acelerationReaction;
+
+		host.setPosition(new Point2D.Double(
+				position.getX() + x,
+				position.getY() - y));
+
+		// Point2D position = host.getPosition();
+		//host.setPosition(position);
 	}
 
 }

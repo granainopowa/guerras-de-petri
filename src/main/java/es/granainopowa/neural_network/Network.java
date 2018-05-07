@@ -73,6 +73,7 @@ public class Network {
 		for (HiddenLayer layer : this.hiddenLayers) {
 			layer.compute();
 		}
+		outputLayer.compute();
 	}
 
 	public List<Double> getNetworkOutputs() {
