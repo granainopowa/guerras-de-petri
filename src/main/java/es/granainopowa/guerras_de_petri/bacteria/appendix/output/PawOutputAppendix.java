@@ -3,6 +3,7 @@ package es.granainopowa.guerras_de_petri.bacteria.appendix.output;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class PawOutputAppendix extends OutputAppendix {
 	public void draw(Graphics2D g2d, AffineTransform petriDishCenterTransform, AffineTransform bacteriaTransform) {
 		AffineTransform pawTransform = getPawTransform(bacteriaTransform);
 
-		Line2D line = new Line2D.Double(0, 0, 0, -length);
+		Line2D line = new Line2D.Double(0, 0, 0, -length * acelerationReaction);
 		g2d.draw(pawTransform.createTransformedShape(line));
 	}
 
@@ -70,19 +71,18 @@ public class PawOutputAppendix extends OutputAppendix {
 		this.angleReaction = (angle - 0.5) * Math.PI;
 
 		Bacteria host = getHost();
-		double d = angleReaction + host.getAngleInRadians();
-
-		Point2D position = host.getPosition();
+		double d = angleReaction + host.getAngleInRadians() + getAngleInRadians();
 
 		double x = Math.sin(d) * acelerationReaction;
-		double y = Math.cos(d) * acelerationReaction;
+		double y = -Math.cos(d) * acelerationReaction;
 
-		host.setPosition(new Point2D.Double(
-				position.getX() + x,
-				position.getY() - y));
+		Point2D position = host.getPosition();
+		Point2D finalPosition = new Point2D.Double(position.getX() + x, position.getY() + y);
+		host.setPosition(finalPosition);
+	}
 
-		// Point2D position = host.getPosition();
-		//host.setPosition(position);
+	private double getAngleInRadians() {
+		return Math.toRadians(angleBacteriaRelative);
 	}
 
 }
