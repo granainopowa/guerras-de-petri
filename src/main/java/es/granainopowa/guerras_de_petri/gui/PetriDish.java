@@ -29,6 +29,10 @@ public class PetriDish extends JPanel implements ActionListener {
 	private static final int DISH_RADIUS = 300;
 	private static final int DISH_DIAMETER = 2 * DISH_RADIUS;
 	private final int DELAY = 25;
+	private static final int EVALUATION_STEPS = 10;
+
+	private int step = 0;
+	private Point2D destinationPoint;
 
 	List<Bacteria> bacterias = new ArrayList<>();
 	private Timer timer;
@@ -37,15 +41,17 @@ public class PetriDish extends JPanel implements ActionListener {
 		timer = new Timer(DELAY, this);
 		timer.start();
 
-		for (int i = 0; i < 10; i++) {
-			createBacteria(100, -100);
+		destinationPoint = new Point2D.Double(100, -100);
+
+		for (int i = 0; i < 100; i++) {
+			createBacteria();
 		}
 	}
 
-	private void createBacteria(int destX, int destY) {
+	private void createBacteria() {
 		FirstTryBacteria bacteria = new FirstTryBacteria();
 		bacteria.setPosition(new Point2D.Double(0, 0));
-		bacteria.setDestination(new Point2D.Double(destX, -destY));
+		bacteria.setDestination(destinationPoint);
 		bacteria.setAngle(RandomUtils.randomInt(0, 360));
 		bacteria.setColor(RandomUtils.randomColor());
 		this.bacterias.add(bacteria);
@@ -75,9 +81,21 @@ public class PetriDish extends JPanel implements ActionListener {
 	}
 
 	private void drawBacterias(Graphics2D g2d, AffineTransform petriDishCenterTransform) {
+		boolean evaluate = step % EVALUATION_STEPS == 0;
+		step++;
+
 		for (Bacteria bacteria : bacterias) {
 			bacteria.step();
 			bacteria.draw(g2d, petriDishCenterTransform);
+
+			double score = bacteria.getScore();
+			Point2D position = bacteria.getPosition();
+			if (evaluate) {
+				double distance = position.distance(destinationPoint);
+				bacteria.setScore(score - distance);
+			}
+			Point2D scoreLocation = petriDishCenterTransform.transform(new Point2D.Double(position.getX(), position.getY() - 40), null);
+			g2d.drawString(Double.toString(score), (int) scoreLocation.getX(), (int) scoreLocation.getY());
 		}
 	}
 

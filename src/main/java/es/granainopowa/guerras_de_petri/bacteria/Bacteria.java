@@ -23,6 +23,8 @@ public abstract class Bacteria {
 	private static final int DEFAULT_RADIUS = 25;
 	private static final BasicStroke DEFAULT_STROKE = new BasicStroke(3);
 
+	private double score = 0;
+
 	// Network properties
 	private Network network;
 	private List<InputAppendix> inputAppendices;
@@ -100,6 +102,10 @@ public abstract class Bacteria {
 
 	/* GETTERS */
 
+	public double getScore() {
+		return score;
+	}
+
 	/**
 	 * Gets an AffineTransform to move the origin of the Bacteria for drawing into
 	 * the PetriDish
@@ -142,6 +148,10 @@ public abstract class Bacteria {
 	}
 
 	/* SETTERS */
+
+	public void setScore(double score) {
+		this.score = score;
+	}
 
 	public void setPosition(Point2D position) {
 		this.position = position;
