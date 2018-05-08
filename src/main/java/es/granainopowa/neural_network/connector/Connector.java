@@ -25,12 +25,16 @@ public class Connector {
 		this.inputNeuron = inputNeuron;
 	}
 
+	public final double getValue() {
+		return inputNeuron.getOutput() * this.weight;
+	}
+
 	public Double getWeight() {
 		return this.weight;
 	}
 
-	public final double getValue() {
-		return inputNeuron.getOutput() * this.weight;
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 }

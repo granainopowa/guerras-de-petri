@@ -43,4 +43,8 @@ public class HiddenNeuron extends Neuron {
 		return result;
 	}
 
+	public List<Connector> getInputs() {
+		return inputs;
+	}
+
 }

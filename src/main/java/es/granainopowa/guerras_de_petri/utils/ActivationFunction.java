@@ -8,10 +8,14 @@ public class ActivationFunction {
 
 	/**
 	 * @param x
-	 * @return a double in the rank [0, 1]
+	 * @return a double in the rank [-1, 1)
 	 */
 	public static double sigmoid(double x) {
-		return 1 / (1 + Math.exp(-x));
+		return (2 / (1 + Math.exp(-x))) - 1;
+	}
+	
+	public static double tanHiperbolic(double x) {
+		return Math.tanh(x);
 	}
 
 }

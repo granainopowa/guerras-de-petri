@@ -58,7 +58,6 @@ public abstract class Bacteria {
 	public void step() {
 		List<Double> inputs = AppendixUtils.getAllInputs(inputAppendices);
 		network.computeNetwork(inputs);
-
 		List<Double> allNetworkOutputs = network.getNetworkOutputs();
 		AppendixUtils.makeAllReactToNetworkOutputs(outputAppendices, allNetworkOutputs);
 	}

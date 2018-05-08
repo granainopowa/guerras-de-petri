@@ -18,7 +18,8 @@ public abstract class Neuron {
 	}
 
 	public final void computeOutput() {
-		this.output = ActivationFunction.sigmoid(getInput());
+		//this.output = ActivationFunction.sigmoid(getInput());
+		this.output = ActivationFunction.tanHiperbolic(getInput());
 	}
 
 }

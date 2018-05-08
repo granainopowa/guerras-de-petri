@@ -19,7 +19,7 @@ public class FirstTryBacteria extends Bacteria {
 	RelativePositionInputAppendix input;
 
 	public FirstTryBacteria() {
-		init(createInputAppendices(), Arrays.asList(3, 4, 3), createOutputAppendices());
+		init(createInputAppendices(), Arrays.asList(3), createOutputAppendices());
 	}
 
 	public void setDestination(Point2D destination) {
@@ -33,9 +33,6 @@ public class FirstTryBacteria extends Bacteria {
 
 	private List<OutputAppendix> createOutputAppendices() {
 		return Arrays.asList(
-				new PawOutputAppendix(this, 45),
-				new PawOutputAppendix(this, -45),
-				new PawOutputAppendix(this, 135),
-				new PawOutputAppendix(this, -135));
+				new PawOutputAppendix(this, 0));
 	}
 }

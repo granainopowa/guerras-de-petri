@@ -42,4 +42,8 @@ public abstract class Layer<T extends Neuron> {
 		return outputs;
 	}
 
+	public List<T> getNeurons() {
+		return neurons;
+	}
+
 }
