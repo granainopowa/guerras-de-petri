@@ -19,7 +19,7 @@ import javax.swing.Timer;
 
 import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
 import es.granainopowa.guerras_de_petri.bacteria.FirstTryBacteria;
-import es.granainopowa.guerras_de_petri.utils.math.MathUtils;
+import es.granainopowa.guerras_de_petri.utils.math.RandomUtils;
 
 /**
  * @author Rafael Jiménez (29 abr. 2018)
@@ -46,8 +46,8 @@ public class PetriDish extends JPanel implements ActionListener {
 		FirstTryBacteria bacteria = new FirstTryBacteria();
 		bacteria.setPosition(new Point2D.Double(0, 0));
 		bacteria.setDestination(new Point2D.Double(destX, -destY));
-		bacteria.setAngle(MathUtils.randomInt(0, 360));
-		bacteria.setColor(MathUtils.randomColor());
+		bacteria.setAngle(RandomUtils.randomInt(0, 360));
+		bacteria.setColor(RandomUtils.randomColor());
 		this.bacterias.add(bacteria);
 	}
 
