@@ -7,7 +7,6 @@ import java.awt.geom.Point2D;
  *
  */
 public class MathUtils {
-
 	public static double VectorModulus(Point2D vector) {
 		double x2 = Math.pow(vector.getX(), 2);
 		double y2 = Math.pow(vector.getY(), 2);
