@@ -1,7 +1,6 @@
 package es.granainopowa.neural_network.connector;
 
-import java.util.Random;
-
+import es.granainopowa.guerras_de_petri.utils.math.MathUtils;
 import es.granainopowa.neural_network.neuron.Neuron;
 
 /**
@@ -10,16 +9,14 @@ import es.granainopowa.neural_network.neuron.Neuron;
  * @author Rafael Jiménez (18 abr. 2018)
  */
 public class Connector {
-	private static final Random RANDOM = new Random();
-
 	private Neuron inputNeuron;
 	private double weight;
 
 	/**
-	 * Sets a random weight in the interval (-1, 1)
+	 * Sets a random weight in the interval [-1, 1)
 	 */
 	public Connector(Neuron inputNeuron) {
-		this.weight = (RANDOM.nextDouble() * 2) - 1;
+		this.weight = MathUtils.randomDouble(-1, 1);
 		this.inputNeuron = inputNeuron;
 	}
 
