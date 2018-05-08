@@ -3,7 +3,6 @@ package es.granainopowa.guerras_de_petri.bacteria.appendix.output;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
-import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.util.List;
 
@@ -22,10 +21,10 @@ import es.granainopowa.guerras_de_petri.bacteria.Bacteria;
  * @author Rafael Jiménez (2 may. 2018)
  */
 public class PawOutputAppendix extends OutputAppendix {
-	private static final int DEFAULT_LENGTH = 25;
+	private static final int MAX_PAW_LENGTH = 30;
 	private static final int OUTPUT_COUNT = 2;
 
-	private int length = DEFAULT_LENGTH;
+	private int length = MAX_PAW_LENGTH;
 	private int angleBacteriaRelative;
 	private double acelerationReaction;
 	private double angleReaction;
@@ -46,8 +45,15 @@ public class PawOutputAppendix extends OutputAppendix {
 	public void draw(Graphics2D g2d, AffineTransform petriDishCenterTransform, AffineTransform bacteriaTransform) {
 		AffineTransform pawTransform = getPawTransform(bacteriaTransform);
 
-		Line2D line = new Line2D.Double(0, 0, 0, -length * acelerationReaction);
-		g2d.draw(pawTransform.createTransformedShape(line));
+		double pawLength = -length * acelerationReaction;
+		Line2D pawLine = new Line2D.Double(0, 0, 0, pawLength);
+		Line2D leftFinger = new Line2D.Double(-5, pawLength - 5, 0, pawLength);
+		Line2D middleFinger = new Line2D.Double(0, pawLength - 7, 0, pawLength);
+		Line2D rightFinger = new Line2D.Double(+5, pawLength - 5, 0, pawLength);
+		g2d.draw(pawTransform.createTransformedShape(pawLine));
+		g2d.draw(pawTransform.createTransformedShape(leftFinger));
+		g2d.draw(pawTransform.createTransformedShape(middleFinger));
+		g2d.draw(pawTransform.createTransformedShape(rightFinger));
 	}
 
 	private AffineTransform getPawTransform(AffineTransform bacteriaTransform) {
