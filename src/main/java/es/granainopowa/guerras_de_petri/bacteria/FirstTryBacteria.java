@@ -17,7 +17,7 @@ import es.granainopowa.guerras_de_petri.bacteria.appendix.output.PawOutputAppend
 public class FirstTryBacteria extends Bacteria {
 
 	RelativePositionInputAppendix input;
-	
+
 	public FirstTryBacteria() {
 		init(createInputAppendices(), Arrays.asList(3, 4, 3), createOutputAppendices());
 	}
@@ -25,7 +25,7 @@ public class FirstTryBacteria extends Bacteria {
 	public void setDestination(Point2D destination) {
 		input.setDestination(destination);
 	}
-	
+
 	private List<InputAppendix> createInputAppendices() {
 		input = new RelativePositionInputAppendix(this);
 		return Arrays.asList(input);

@@ -46,13 +46,12 @@ public class PawOutputAppendix extends OutputAppendix {
 		AffineTransform pawTransform = getPawTransform(bacteriaTransform);
 
 		double pawLength = -length * acelerationReaction;
-		Line2D pawLine = new Line2D.Double(0, 0, 0, pawLength);
+		Line2D pawLine = new Line2D.Double(0, 0, 0, pawLength - 9);
 		Line2D leftFinger = new Line2D.Double(-5, pawLength - 5, 0, pawLength);
-		Line2D middleFinger = new Line2D.Double(0, pawLength - 7, 0, pawLength);
 		Line2D rightFinger = new Line2D.Double(+5, pawLength - 5, 0, pawLength);
+
 		g2d.draw(pawTransform.createTransformedShape(pawLine));
 		g2d.draw(pawTransform.createTransformedShape(leftFinger));
-		g2d.draw(pawTransform.createTransformedShape(middleFinger));
 		g2d.draw(pawTransform.createTransformedShape(rightFinger));
 	}
 
