@@ -56,4 +56,18 @@ public class NetworkTest {
 			fail("wrong output (" + output + " != " + desired + ")");
 		}
 	}
+
+	@Test
+	public void testTanHiperbolic() {
+		testTanHiperbolic(-100000000, -1);
+		testTanHiperbolic(0, 0);
+		testTanHiperbolic(100000000, 1);
+	}
+
+	public void testTanHiperbolic(double input, double desired) {
+		double output = ActivationFunction.tanHiperbolic(input);
+		if (output != desired) {
+			fail("wrong output (" + output + " != " + desired + ")");
+		}
+	}
 }

@@ -72,7 +72,7 @@ public class PawOutputAppendix extends OutputAppendix {
 		// convert [-1, 1] to rank [0, 1]
 		this.acelerationReaction = (networkOutputs.get(0) + 1) / 2;
 		double angle = networkOutputs.get(1);
-		// convert [1, 1] to rank [-PI, PI]
+		// convert [-1, 1] to rank [-PI, PI]
 		this.angleReaction = angle * Math.PI;
 
 		Bacteria host = getHost();
