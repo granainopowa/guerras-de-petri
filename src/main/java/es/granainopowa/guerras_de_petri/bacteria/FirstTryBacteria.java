@@ -33,6 +33,7 @@ public class FirstTryBacteria extends Bacteria {
 
 	private List<OutputAppendix> createOutputAppendices() {
 		return Arrays.asList(
-				new PawOutputAppendix(this, 0));
+				new PawOutputAppendix(this, -90),
+				new PawOutputAppendix(this, 90));
 	}
 }
