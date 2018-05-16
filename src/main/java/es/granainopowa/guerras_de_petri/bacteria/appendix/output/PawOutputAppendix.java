@@ -53,6 +53,18 @@ public class PawOutputAppendix extends OutputAppendix {
 		g2d.draw(pawTransform.createTransformedShape(pawLine));
 		g2d.draw(pawTransform.createTransformedShape(leftFinger));
 		g2d.draw(pawTransform.createTransformedShape(rightFinger));
+/*
+		// Draw outputs
+		Point2D position = getHost().getPosition();
+
+		String acelerationText = Double.toString(acelerationReaction);
+		Point2D outputTextPosition = petriDishCenterTransform.transform(new Point2D.Double(position.getX() - 100, position.getY() - 100), null);
+		g2d.drawString(acelerationText, (int)outputTextPosition.getX(), (int)outputTextPosition.getY());
+
+		String directionText = Double.toString(angleReaction);
+		Point2D directionTextPosition = pawTransform.transform(new Point2D.Double(position.getX() - 100, position.getY() - 80), null);
+		g2d.drawString(directionText, (int)directionTextPosition.getX(), (int)directionTextPosition.getY());
+*/
 	}
 
 	private AffineTransform getPawTransform(AffineTransform bacteriaTransform) {
@@ -72,8 +84,8 @@ public class PawOutputAppendix extends OutputAppendix {
 		// convert [-1, 1] to rank [0, 1]
 		this.acelerationReaction = (networkOutputs.get(0) + 1) / 2;
 		double angle = networkOutputs.get(1);
-		// convert [-1, 1] to rank [-PI, PI]
-		this.angleReaction = angle * Math.PI;
+		// convert [-1, 1] to rank [-PI/2, PI/2]
+		this.angleReaction = angle * Math.PI/2;
 
 		Bacteria host = getHost();
 		double d = angleReaction + host.getAngleInRadians() + getAngleInRadians();
