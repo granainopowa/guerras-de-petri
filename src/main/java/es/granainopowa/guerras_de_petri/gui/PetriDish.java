@@ -21,16 +21,16 @@ public class PetriDish extends JPanel implements ActionListener {
 	private static final long serialVersionUID = -6727865483084967707L;
 	private static final int DISH_RADIUS = 300;
 	private static final int DISH_DIAMETER = 2 * DISH_RADIUS;
-	private final int DELAY = 25;
+	private final int DELAY = 0;
 
 	private Timer timer;
-	private Generation generation;
+	private Training training;
 
 	public PetriDish() {
 		timer = new Timer(DELAY, this);
 		timer.start();
 
-		generation = new Generation(10);
+		training = new Training(10);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class PetriDish extends JPanel implements ActionListener {
 				windowSize.getHeight() / 2);
 
 		drawPetriDish(g2d, petriDishCenterTransform);
-		generation.drawBacterias(g2d, petriDishCenterTransform);
+		training.drawBacterias(g2d, petriDishCenterTransform);
 	}
 
 	private void drawPetriDish(Graphics2D g2d, AffineTransform affineTransform) {

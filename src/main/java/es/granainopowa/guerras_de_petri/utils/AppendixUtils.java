@@ -15,6 +15,7 @@ public class AppendixUtils {
 
 	public static int getNeuronConnectionsCount(List<? extends BacteriaAppendix> appendices) {
 		int neuronCount = 0;
+
 		for (BacteriaAppendix appendix : appendices) {
 			neuronCount += appendix.getNeuronConnectionsCount();
 		}
